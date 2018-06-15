@@ -3,8 +3,11 @@ import session from 'express-session';
 import mongo from 'connect-mongo';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-import errorHandler from 'errorhandler';
 import './utils/dotenv';
+import authRouter from './routes/auth';
+import index from './routes/index';
+import authenticate from './middlewares/authenticate';
+import defaultErrorHandler from './middlewares/defaultErrorHandler';
 
 const logger = require('./utils/logger')('server');
 
@@ -33,10 +36,14 @@ app.use(
     }),
   }),
 );
-app.use(errorHandler());
+
+app.use(`/api/v${process.env.API_VERSION}/auth`, authRouter);
+app.use(`/api/v${process.env.API_VERSION}`, index);
+
+app.use(defaultErrorHandler);
 
 const host = process.env[`HOST_${process.platform.toUpperCase()}`];
 const port = process.env.HOST_PORT;
-module.exports = app.listen(port, host, () => {
+app.listen(port, host, () => {
   logger.log('info', `App is running at http://${host}:${port} in ${app.get('env')} mode.`);
 });

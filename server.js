@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 import './utils/dotenv';
 import authRouter from './routes/auth';
 import user from './routes/user';
+import media from './routes/media';
 import index from './routes/index';
 import authenticate from './middlewares/authenticate';
 import defaultErrorHandler from './middlewares/defaultErrorHandler';
@@ -40,6 +41,7 @@ app.use(
 
 app.use(`/api/v${process.env.API_VERSION}/auth`, authRouter);
 app.use(`/api/v${process.env.API_VERSION}/users`, user);
+app.use(`/api/v${process.env.API_VERSION}/media`, media);
 app.use(`/api/v${process.env.API_VERSION}`, index);
 
 app.use(defaultErrorHandler);

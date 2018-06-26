@@ -17,6 +17,7 @@ const getUserInfo = async (req, res) => {
   res.status(200).send({
     payload: {
       id: user['_id'],
+      email: user.email,
       username: user.username,
       createdAt: user.createdAt,
     },

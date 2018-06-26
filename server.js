@@ -45,9 +45,10 @@ app.use(`/api/v${process.env.API_VERSION}/media`, media);
 app.use(`/api/v${process.env.API_VERSION}`, index);
 
 app.use(defaultErrorHandler);
-console.log(`HOST_${process.platform.toUpperCase()}`);
+
 const host = process.env[`HOST_${process.platform.toUpperCase()}`];
-const port = process.env.HOST_PORT;
+const port = process.env.PORT || process.env.HOST_PORT;
+
 app.listen(port, host, () => {
   logger.log('info', `App is running at http://${host}:${port} in ${app.get('env')} mode.`);
 });

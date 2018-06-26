@@ -39,7 +39,7 @@ app.use(
   }),
 );
 
-app.use(`/api/v${process.env.API_VERSION}/auth`, authRouter);
+app.use(`/api/v${process.env.API_VERSION}/session`, authRouter);
 app.use(`/api/v${process.env.API_VERSION}/users`, user);
 app.use(`/api/v${process.env.API_VERSION}/media`, media);
 app.use(`/api/v${process.env.API_VERSION}`, index);

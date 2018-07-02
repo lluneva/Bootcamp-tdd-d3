@@ -39,4 +39,4 @@ UserModel.schema
   .path('email')
   .validate(async email => !(await getUserByEmail(email)), 'User already exists!');
 
-export { save, getUserByName, getUserByEmail, comparePassword };
+export { save, getUserByName, getUserByEmail, comparePassword, userSchema };

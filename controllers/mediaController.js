@@ -7,7 +7,7 @@ const getPosts = async (req, res) => {
 
 const addPosts = async (req, res) => {
   logger.log('debug', 'addPosts: %j', req.body);
-  res.status(200).send({ message: 'Work in prgress' });
+  res.status(200).send({ message: 'Create new posts' });
 };
 
 const attachMedia = async (req, res) => {

@@ -1,25 +1,20 @@
 import mongoose from 'mongoose';
 import { userSchema } from './UserModel';
 
-const postSchema = new mongoose.Schema(
+const mediaSchema = new mongoose.Schema(
   {
-    title: { type: String, trim: true, unique: true, required: true },
     username: { userSchema },
-    images: { type: String, unique: false, required: true },
+    url: { type: String, unique: true, required: true },
   },
   { timestamps: true },
 );
 
-postSchema.pre('save', async next => {
-  next();
-});
+const MediaModel = mongoose.model('Media', mediaSchema);
 
-const PostModel = mongoose.model('User', postSchema);
+const save = async model => new MediaModel(model).save();
 
-const save = async model => new PostModel(model).save();
+const getMediaById = async _id => MediaModel.findOneById({ _id });
 
-const getPostByUser = async username => PostModel.findOne({ username });
+const getMediaByUser = async userName => MediaModel.findOneBy({ userName });
 
-const getRandomPosts = async () => PostModel.findOne();
-
-export { save, getPostByUser, getRandomPosts };
+export { save, getMediaById, getMediaByUser, mediaSchema };

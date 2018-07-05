@@ -2,14 +2,15 @@ import express from 'express';
 
 import asyncMiddleware from '../middlewares/asyncMiddleware';
 import * as mediaController from '../controllers/mediaController';
+import * as commentController from '../controllers/commentController';
 
 const router = express.Router();
 
 router.get('', asyncMiddleware(mediaController.getPosts));
 router.post('', asyncMiddleware(mediaController.addPosts));
 router.post('/content/image', asyncMiddleware(mediaController.attachMedia));
-router.get('/{media-id}', asyncMiddleware(mediaController.getPostById));
-router.get('/{media-id}/comments', asyncMiddleware(mediaController.getPostComments));
-router.post('/{media-id}/comments', asyncMiddleware(mediaController.addPostComments));
+router.get('/:mediaId', asyncMiddleware(mediaController.getPostById));
+router.get('/:mediaId/comments', asyncMiddleware(commentController.getPostComments));
+router.post('/:mediaId/comments', asyncMiddleware(commentController.addPostComments));
 
 export default router;

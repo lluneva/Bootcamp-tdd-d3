@@ -1,5 +1,4 @@
-import jwt from 'jsonwebtoken';
-import { getUserByName } from '../models/UserModel';
+import getUserByToken from '../utils/getUserFromToken';
 import { getCommentsByPost, save } from '../models/CommentModel';
 import AppError from '../errors/AppError';
 
@@ -14,15 +13,7 @@ const getPostComments = async (req, res) => {
 const addPostComments = async (req, res) => {
   logger.log('debug', 'addPostComments: %j', req.body);
 
-  const username = jwt.verify(req.headers.authorization, process.env.JWT_SECRET, (err, decoded) => {
-    if (err) {
-      logger.log('debug', 'Login failed, token invalid');
-      throw new AppError('Wrong user credentials!', 400);
-    }
-    return decoded.data.username;
-  });
-
-  const user = await getUserByName(username);
+  const user = await getUserByToken(req);
   await save({
     message: req.body.text,
     username: user.username,

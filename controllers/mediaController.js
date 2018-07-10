@@ -1,7 +1,5 @@
-import jwt from 'jsonwebtoken';
-import AppError from '../errors/AppError';
-import * as UserModel from '../models/UserModel';
 import * as MediaModel from '../models/MediaModel';
+import getUserByToken from '../utils/getUserFromToken';
 
 const logger = require('../utils/logger')('logController');
 
@@ -17,14 +15,7 @@ const addPosts = async (req, res) => {
 
 const attachMedia = async (req, res) => {
   logger.log('debug', 'attachMedia: %j', req.body);
-  const username = jwt.verify(req.headers.authorization, process.env.JWT_SECRET, (err, decoded) => {
-    if (err) {
-      logger.log('debug', 'Login failed, token invalid');
-      throw new AppError('Wrong user credentials!', 400);
-    }
-    return decoded.data.username;
-  });
-  const user = await UserModel.getUserByName(username);
+  const user = await getUserByToken(req);
   const { file } = req;
 
   const media = await MediaModel.save({

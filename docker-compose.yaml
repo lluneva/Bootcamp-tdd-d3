@@ -8,3 +8,5 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: bootcamp
       MONGO_INITDB_ROOT_PASSWORD: passwd
+    volumes:
+      - './data:/data/db'

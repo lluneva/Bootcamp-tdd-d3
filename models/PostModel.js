@@ -1,12 +1,10 @@
 import mongoose from 'mongoose';
-import { userSchema } from './UserModel';
-import { mediaSchema } from './MediaModel';
 
 const postSchema = new mongoose.Schema(
   {
-    title: { type: String, trim: true, unique: true, required: true },
-    username: { userSchema },
-    media: { mediaSchema },
+    title: { type: String, trim: true, unique: false, required: true },
+    username: { type: String, required: true, unique: false },
+    media: { type: String, unique: true, required: true },
   },
   { timestamps: true },
 );
@@ -21,6 +19,8 @@ const save = async model => new PostModel(model).save();
 
 const getPostByUser = async username => PostModel.findOne({ username });
 
-const getRandomPosts = async () => PostModel.findOne();
+const getPostById = async _id => PostModel.findById({ _id });
 
-export { save, getPostByUser, getRandomPosts };
+const getRandomPosts = async () => PostModel.find();
+
+export { save, getPostByUser, getRandomPosts, getPostById };

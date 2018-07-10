@@ -1,16 +1,25 @@
 import * as MediaModel from '../models/MediaModel';
+import * as PostModel from '../models/PostModel';
 import getUserByToken from '../utils/getUserFromToken';
 
 const logger = require('../utils/logger')('logController');
 
 const getPosts = async (req, res) => {
   logger.log('debug', 'getPosts: %j', req.body);
-  res.status(200).send({ message: 'getPosts Work in prgress' });
+  const posts = await PostModel.getRandomPosts();
+  res.status(200).send({ payload: !posts ? [] : posts });
 };
 
 const addPosts = async (req, res) => {
   logger.log('debug', 'addPosts: %j', req.body);
-  res.status(200).send({ message: 'Create new posts' });
+  const user = await getUserByToken(req);
+  const post = PostModel.save({
+    title: req.body.caption,
+    username: user.username,
+    media: req.body.contentId,
+  });
+  console.log(req.body);
+  res.status(200).send({ payload: post });
 };
 
 const attachMedia = async (req, res) => {
@@ -22,12 +31,19 @@ const attachMedia = async (req, res) => {
     username: user.username,
     url: file.filename,
   });
-  res.status(200).send({ conetntId: media._id, url: `/uploads/image/${'file.filename'}` });
+  res.status(200).send({
+    payload: {
+      conetntId: media._id,
+      url: `/uploads/image/${'file.filename'}`,
+    },
+  });
 };
 
 const getPostById = async (req, res) => {
   logger.log('debug', 'getPostById: %j', req.body);
-  res.status(200).send({ message: 'getPostById Work in prgress' });
+  console.log(req.params.mediaId);
+  const post = await PostModel.getPostById(req.params.mediaId);
+  res.status(200).send({ payload: post });
 };
 
 export { getPosts, addPosts, attachMedia, getPostById };

@@ -1,9 +1,8 @@
 import mongoose from 'mongoose';
-import { userSchema } from './UserModel';
 
 const mediaSchema = new mongoose.Schema(
   {
-    username: { userSchema },
+    username: { type: String, unique: false, required: true },
     url: { type: String, unique: true, required: true },
   },
   { timestamps: true },

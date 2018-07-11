@@ -1,11 +1,11 @@
 import multer from 'multer';
 import path from 'path';
 import * as fsHandler from '../utils/fsHandler';
+import { UPLOAD_FOLDER } from '../consts/web_consts';
 
 const storage = multer.diskStorage({
   async destination(req, file, cb) {
-    const uploadDirName = req.url.split('/')[2];
-    const pathToDir = path.join(__dirname, `../uploads/${uploadDirName}`);
+    const pathToDir = path.join(__dirname, `../${UPLOAD_FOLDER}`);
     await fsHandler.createFolderIfNotExists(pathToDir);
     cb(null, pathToDir);
   },

@@ -9,10 +9,6 @@ const commentSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-commentSchema.pre('save', async next => {
-  next();
-});
-
 const CommentModel = mongoose.model('Comment', commentSchema);
 
 const save = async model => new CommentModel(model).save();

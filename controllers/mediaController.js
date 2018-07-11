@@ -1,6 +1,7 @@
 import * as MediaModel from '../models/MediaModel';
 import * as PostModel from '../models/PostModel';
 import getUserByToken from '../utils/getUserFromToken';
+import { UPLOAD_FOLDER } from '../consts/web_consts';
 
 const logger = require('../utils/logger')('logController');
 
@@ -25,16 +26,18 @@ const addPosts = async (req, res) => {
 const attachMedia = async (req, res) => {
   logger.log('debug', 'attachMedia: %j', req.body);
   const user = await getUserByToken(req);
-  const { file } = req;
+  const {
+    file: { filename },
+  } = req;
 
   const media = await MediaModel.save({
     username: user.username,
-    url: file.filename,
+    url: filename,
   });
   res.status(200).send({
     payload: {
       conetntId: media._id,
-      url: `/uploads/image/${'file.filename'}`,
+      url: `/${UPLOAD_FOLDER}/${'file.filename'}`,
     },
   });
 };

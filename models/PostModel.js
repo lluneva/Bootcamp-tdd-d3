@@ -9,10 +9,6 @@ const postSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-postSchema.pre('save', async next => {
-  next();
-});
-
 const PostModel = mongoose.model('Post', postSchema);
 
 const save = async model => new PostModel(model).save();

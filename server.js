@@ -25,8 +25,6 @@ mongoose.connection.on('error', () => {
 });
 mongoose.connection.once('open', () => logger.log('info', 'MongoDB has been connected.'));
 
-app.use(authenticate);
-
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Credentials', true);

@@ -10,13 +10,7 @@ const getUserByToken = async req => {
   if (authorization) {
     [, token] = authorization.split(' ');
   }
-  const username = jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err) {
-      logger.log('debug', 'Login failed, token invalid');
-      throw new AppError('Wrong user credentials!', 400);
-    }
-    return decoded.data.username;
-  });
+  const username = jwt.verify(token, process.env.JWT_SECRET);
   return UserModel.getUserByName(username);
 };
 

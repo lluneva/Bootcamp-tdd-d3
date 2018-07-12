@@ -5,7 +5,12 @@ import AppError from '../errors/AppError';
 const logger = require('../utils/logger')('logUtils');
 
 const getUserByToken = async req => {
-  const username = jwt.verify(req.headers.authorization, process.env.JWT_SECRET, (err, decoded) => {
+  const { authorization } = req.headers;
+  let token;
+  if (authorization) {
+    [, token] = authorization.split(' ');
+  }
+  const username = jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
       logger.log('debug', 'Login failed, token invalid');
       throw new AppError('Wrong user credentials!', 400);

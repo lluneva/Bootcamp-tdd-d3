@@ -22,6 +22,7 @@ const authenticate = async (req, res, next) => {
   if (authorization) {
     [, token] = authorization.split(' ');
   }
+
   if (token) {
     const decodedToken = await jwtVerify(token);
     if (decodedToken && decodedToken.data && decodedToken.data.username) {

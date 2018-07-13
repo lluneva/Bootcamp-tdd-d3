@@ -1,4 +1,3 @@
-import getUserByToken from '../utils/getUserFromToken';
 import * as CommentModel from '../models/CommentModel';
 import AppError from '../errors/AppError';
 
@@ -12,8 +11,7 @@ const getPostComments = async (req, res) => {
 
 const addPostComments = async (req, res) => {
   logger.log('debug', 'addPostComments: %j', req.body);
-
-  const user = await getUserByToken(req);
+  const { user } = req;
   await CommentModel.save({
     message: req.body.text,
     username: user.username,

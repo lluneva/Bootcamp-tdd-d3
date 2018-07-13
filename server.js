@@ -3,6 +3,7 @@ import session from 'express-session';
 import mongo from 'connect-mongo';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import './utils/dotenv';
 import authRouter from './routes/auth';
 import user from './routes/user';
@@ -25,16 +26,7 @@ mongoose.connection.on('error', () => {
 });
 mongoose.connection.once('open', () => logger.log('info', 'MongoDB has been connected.'));
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json',
-  );
-  next();
-});
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -52,7 +44,7 @@ app.use(
 
 app.use(`/api/v${process.env.API_VERSION}/auth`, authRouter);
 app.use(`/api/v${process.env.API_VERSION}/users`, authenticate, user);
-app.use(`/api/v${process.env.API_VERSION}/media`, media);
+app.use(`/api/v${process.env.API_VERSION}/media`, authenticate, media);
 app.use(`/api/v${process.env.API_VERSION}`, index);
 
 app.use(defaultErrorHandler);

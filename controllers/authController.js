@@ -14,7 +14,7 @@ const register = async (req, res) => {
     throw new AppError(error.message, 400);
   });
   logger.log('info', `Successfully registered: ${req.body.userName}`);
-  res.status(200).send({ message: 'Successfully registered' });
+  res.status(200).send({ payload: { message: 'Successfully registered' } });
 };
 
 const logIn = async (req, res) => {
@@ -34,7 +34,7 @@ const logIn = async (req, res) => {
         { expiresIn: '6h' },
       );
       logger.log('info', `Successfully loged in: ${user.username}`);
-      res.status(200).send({ message: 'Successfully loged in', data: token });
+      res.status(200).send({ payload: { message: 'Successfully loged in', token } });
     }
   } else {
     logger.log('debug', 'Login failed');

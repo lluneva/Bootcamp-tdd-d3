@@ -1,6 +1,6 @@
 import * as MediaModel from '../models/MediaModel';
 import * as PostModel from '../models/PostModel';
-import { UPLOAD_FOLDER } from '../consts/web_consts';
+import { UPLOAD_FOLDER } from '../consts/webConsts';
 
 const logger = require('../utils/logger')('logController');
 
@@ -35,7 +35,7 @@ const attachMedia = async (req, res) => {
 
   res.status(200).send({
     payload: {
-      conetntId: media.id,
+      contentId: media.id,
       url: `/${UPLOAD_FOLDER}/${'file.filename'}`,
     },
   });
@@ -43,7 +43,6 @@ const attachMedia = async (req, res) => {
 
 const getPostById = async (req, res) => {
   logger.log('debug', 'getPostById: %j', req.body);
-  console.log(req.params.mediaId);
   const post = await PostModel.getPostById(req.params.mediaId);
   res.status(200).send({ payload: post });
 };

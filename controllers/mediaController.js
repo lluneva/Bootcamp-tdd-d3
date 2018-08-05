@@ -28,7 +28,7 @@ const attachMedia = async (req, res) => {
 
   const media = await MediaModel.save({
     username: user.username,
-    path: filename,
+    path: `/${UPLOAD_FOLDER}/${filename}`,
   });
 
   res.status(200).send({

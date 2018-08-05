@@ -49,6 +49,7 @@ app.use(`/api/v${process.env.API_VERSION}/media`, authenticate, media);
 app.use(`/api/v${process.env.API_VERSION}`, download);
 app.use(`/api/v${process.env.API_VERSION}`, index);
 
+app.use(express.static('uploads'));
 app.use(defaultErrorHandler);
 
 const host = process.env[`HOST_${process.platform.toUpperCase()}`];

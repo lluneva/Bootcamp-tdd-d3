@@ -1,1 +1,1 @@
-export const UPLOAD_FOLDER = 'uploads/image';
+export const UPLOAD_FOLDER = 'uploads/images';

@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const mediaSchema = new mongoose.Schema(
   {
     username: { type: String, unique: false, required: true },
-    url: { type: String, unique: true, required: true },
+    path: { type: String, unique: true, required: true },
   },
   { timestamps: true },
 );

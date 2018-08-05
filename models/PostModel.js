@@ -4,7 +4,10 @@ const postSchema = new mongoose.Schema(
   {
     title: { type: String, trim: true, unique: false, required: true },
     username: { type: String, required: true, unique: false },
-    media: { type: String, unique: true, required: true },
+    media: {
+      id: { type: String, unique: true, required: true },
+      url: { type: String, unique: true, required: true },
+    },
   },
   { timestamps: true },
 );

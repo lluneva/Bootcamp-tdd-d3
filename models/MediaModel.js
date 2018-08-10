@@ -12,7 +12,7 @@ const MediaModel = mongoose.model('Media', mediaSchema);
 
 const save = async model => new MediaModel(model).save();
 
-const getMediaById = async id => MediaModel.findOne({ id });
+const getMediaById = async id => MediaModel.findOne({ _id: id});
 
 const getMediaByUser = async userName => MediaModel.findOne({ userName });
 

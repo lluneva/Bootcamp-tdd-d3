@@ -1,16 +1,11 @@
 {
   "presets": [
-    ["env", {
+    ["@babel/preset-env", {
       "targets": {
         "node": "current"
       }
     }]
   ],
   "sourceMap": "inline",
-  "retainLines": true,
-  "plugins": [
-    ["babel-plugin-transform-builtin-extend", {
-        "globals": ["Error"]
-    }]
-  ]
+  "retainLines": true
 }

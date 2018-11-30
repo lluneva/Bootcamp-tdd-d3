@@ -19,7 +19,13 @@ const app = express();
 // TODO move Mongo connect to separate file
 const MongoStore = mongo(session);
 mongoose.Promise = global.Promise; // Use native promises - http://mongoosejs.com/docs/promises.html
-mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect(
+  process.env.MONGODB_URI,
+  {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+  },
+);
 mongoose.connection.on('error', () => {
   logger.log('error', 'MongoDB connection error. Please make sure MongoDB is running.');
   process.exit();

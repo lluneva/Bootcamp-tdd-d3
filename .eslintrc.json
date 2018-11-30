@@ -9,5 +9,13 @@
   "rules": {
     "function-paren-newline": ["off"],
     "prettier/prettier": "error"
+  },
+  "globals": {
+    "chai": true,
+    "expect": true,
+    "shallow": true,
+    "mount": true,
+    "sinon": true,
+    "jest": true
   }
 }

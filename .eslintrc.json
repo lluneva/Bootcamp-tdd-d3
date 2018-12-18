@@ -4,7 +4,7 @@
     "es6": true,
     "mocha": true
   },
-  "extends": ["airbnb-base", "prettier"],
+  "extends": ["airbnb", "prettier"],
   "plugins": ["import", "prettier"],
   "rules": {
     "function-paren-newline": ["off"],

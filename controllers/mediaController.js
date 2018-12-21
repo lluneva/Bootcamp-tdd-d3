@@ -1,6 +1,6 @@
 import * as MediaModel from '../models/MediaModel';
 import * as PostModel from '../models/PostModel';
-import { UPLOAD_FOLDER } from '../consts/webConsts';
+import { UPLOAD_FOLDER } from '../consts';
 import AppError from '../errors/AppError';
 
 const logger = require('../utils/logger')('logController');

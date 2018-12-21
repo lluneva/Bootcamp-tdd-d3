@@ -12,11 +12,11 @@ const register = async (req, res, next) => {
       email: req.body.email,
       rehashedPassword: req.body.hashedPassword,
     });
+    logger.log('info', `Successfully registered: ${req.body.userName}`);
+    res.status(200).send({ payload: { message: 'Successfully registered' } });
   } catch (error) {
     next(new AppError(error.message, 400));
   }
-  logger.log('info', `Successfully registered: ${req.body.userName}`);
-  res.status(200).send({ payload: { message: 'Successfully registered' } });
 };
 
 const logIn = async (req, res, next) => {
@@ -42,10 +42,10 @@ const logIn = async (req, res, next) => {
       logger.log('info', `Successfully loged in: ${user.username}`);
       res.status(200).send({ payload: { message: 'Successfully loged in', token } });
     } else {
-      throw new AppError('Wrong password');
+      throw new AppError('Wrong password', 400);
     }
   } catch (error) {
-    next(new AppError('Wrong user credentials!', 400));
+    next(error instanceof AppError ? error : new AppError('Wrong user credentials!', 400));
   }
 };
 

@@ -10,7 +10,7 @@ describe('IndexController', () => {
       const send = { send: sinon.stub() };
       const res = { status: sinon.stub().returns(send) };
       const req = sinon.stub();
-      const indexCall = indexController(req, res);
+      indexController(req, res);
       expect(res.status).to.be.calledWith(200);
       expect(send.send).to.be.calledWith({ message: 'Bootcamp api' });
       expect(req).to.have.not.been.calledOnce;

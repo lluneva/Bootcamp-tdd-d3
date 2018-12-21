@@ -1,7 +1,7 @@
 import multer from 'multer';
 import path from 'path';
 import * as fsHandler from '../utils/fsHandler';
-import { UPLOAD_FOLDER } from '../consts/webConsts';
+import { UPLOAD_FOLDER } from '../consts';
 
 const storage = multer.diskStorage({
   async destination(req, file, cb) {

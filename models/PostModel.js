@@ -22,4 +22,4 @@ const getPostById = async _id => PostModel.findById({ _id });
 
 const getRandomPosts = async () => PostModel.find();
 
-export { save, getPostByUser, getRandomPosts, getPostById };
+export { save, getPostByUser, getRandomPosts, getPostById, postSchema, PostModel };

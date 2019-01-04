@@ -15,4 +15,4 @@ const save = async model => new CommentModel(model).save();
 
 const getCommentsByPost = async mediaId => CommentModel.find({ mediaId });
 
-export { save, getCommentsByPost, commentSchema };
+export { save, getCommentsByPost, commentSchema, CommentModel };

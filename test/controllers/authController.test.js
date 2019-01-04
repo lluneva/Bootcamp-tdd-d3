@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
-import AppError from '../errors/AppError';
-import * as UserModel from '../models/UserModel';
-import { register, logIn } from '../controllers/authController';
+import AppError from '../../errors/AppError';
+import * as UserModel from '../../models/UserModel';
+import { register, logIn } from '../../controllers/authController';
 
 require('dotenv').config();
 

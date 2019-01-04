@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-expressions */
-import indexController from '../controllers/indexController';
+import indexController from '../../controllers/indexController';
 
 require('dotenv').config();
 

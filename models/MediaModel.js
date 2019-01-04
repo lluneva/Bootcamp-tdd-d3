@@ -16,4 +16,4 @@ const getMediaById = async id => MediaModel.findOne({ _id: id});
 
 const getMediaByUser = async userName => MediaModel.findOne({ userName });
 
-export { save, getMediaById, getMediaByUser, mediaSchema };
+export { save, getMediaById, getMediaByUser, mediaSchema, MediaModel };

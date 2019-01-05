@@ -26,7 +26,7 @@ mongoose.connect(
     useNewUrlParser: true,
   },
 );
-mongoose.connection.on('error', () => {
+mongoose.connection.on('error', error => {
   logger.log('error', 'MongoDB connection error. Please make sure MongoDB is running.');
   process.exit();
 });

@@ -2,7 +2,7 @@
 import * as MediaModel from '../../models/MediaModel';
 import * as PostModel from '../../models/PostModel';
 import { addPosts, attachMedia, getPosts, getPostById } from '../../controllers/mediaController';
-import { UPLOAD_FOLDER } from '../../consts';
+import { UPLOAD_FOLDER } from '../../consts/paths';
 import AppError from '../../errors/AppError';
 
 require('dotenv').config();
@@ -41,7 +41,7 @@ describe('MediaController', () => {
       getMediaById.restore(MediaModel);
       savePost.restore(PostModel);
     });
-    it('unsuccessfully addPosts, getMediaById rejects, status 400', async () => {
+    it('unsuccessfully addPosts, getMediaById rejects', async () => {
       const req = {
         user: {
           username: 'username',
@@ -62,7 +62,7 @@ describe('MediaController', () => {
       expect(next.args[0][0]).to.be.instanceOf(AppError);
       getMediaById.restore(MediaModel);
     });
-    it('unsuccessfully addPosts, save rejects, status 400', async () => {
+    it('unsuccessfully addPosts, save rejects', async () => {
       const req = {
         user: {
           username: 'username',
@@ -125,7 +125,7 @@ describe('MediaController', () => {
       });
       mediaSave.restore(MediaModel);
     });
-    it('unsuccessfully attachMedia, status 400', async () => {
+    it('unsuccessfully attachMedia', async () => {
       const req = {
         user: {
           username: 'username',
@@ -192,7 +192,7 @@ describe('MediaController', () => {
       expect(resSend.send).to.be.calledWith({ payload: post });
       getPostByIdModel.restore(PostModel);
     });
-    it('unsuccessfully getPostById, status 400', async () => {
+    it('unsuccessfully getPostById', async () => {
       const req = {};
       const resSend = { send: sinon.stub() };
       const res = { status: sinon.stub().returns(resSend) };

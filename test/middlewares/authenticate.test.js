@@ -6,7 +6,7 @@ import authenticate from '../../middlewares/authenticate';
 
 require('dotenv').config();
 
-describe('.authenticate(req, res, next)', () => {
+describe('Middleware .authenticate(req, res, next)', () => {
   it('authorization registered, status 200', async () => {
     const resSend = { send: sinon.stub() };
     const req = {
@@ -16,18 +16,20 @@ describe('.authenticate(req, res, next)', () => {
     };
     const res = { status: sinon.stub().returns(resSend) };
     const next = sinon.stub();
-    const verify = sinon
-      .stub(jwt, 'verify')
-      .callsArgWith(2, null, { data: { username: 'username' } });
+    const user = { data: { username: 'username' } };
+    const verify = sinon.stub(jwt, 'verify').callsArgWith(2, null, user);
     const getUserByName = sinon.stub(UserModel, 'getUserByName').resolves('user');
     await authenticate(req, res, next);
-    expect(verify).to.be.calledWith('authorization', process.env.JWT_SECRET);
-    expect(getUserByName).to.be.calledWith('username');
+    expect(verify).to.be.calledWith(
+      req.headers.authorization.split(' ')[1],
+      process.env.JWT_SECRET,
+    );
+    expect(getUserByName).to.be.calledWith(user.data.username);
     expect(next).to.be.calledWith();
     getUserByName.restore();
     verify.restore();
   });
-  it('authorization failed, bad header, status 400', async () => {
+  it('authorization failed, bad header', async () => {
     const resSend = { send: sinon.stub() };
     const req = {
       headers: {
@@ -40,7 +42,7 @@ describe('.authenticate(req, res, next)', () => {
     expect(next).to.be.calledOnce;
     expect(next.args[0][0]).to.be.instanceOf(AuthError);
   });
-  it('authorization failed, broken token,status 400', async () => {
+  it('authorization failed, broken token', async () => {
     const resSend = { send: sinon.stub() };
     const req = {
       headers: {
@@ -53,5 +55,6 @@ describe('.authenticate(req, res, next)', () => {
     await authenticate(req, res, next);
     expect(next).to.be.calledOnce;
     expect(next.args[0][0]).to.be.instanceOf(AuthError);
+    verify.restore();
   });
 });

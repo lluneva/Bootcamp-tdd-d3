@@ -1,5 +1,12 @@
 /* eslint-disable no-unused-expressions */
-import { save, getUserByName, getUserByEmail, userSchema, UserModel } from '../../models/UserModel';
+import {
+  save,
+  getUserByName,
+  comparePassword,
+  getUserByEmail,
+  userSchema,
+  UserModel,
+} from '../../models/UserModel';
 
 describe('UserModel', async () => {
   it('userSchema correct', async () => {
@@ -33,5 +40,19 @@ describe('UserModel', async () => {
     UserModel.findOne = findModel;
     await getUserByEmail(email);
     expect(findModel).to.be.calledWith({ email });
+  });
+  it('comparePassword works', async () => {
+    const equalPassword = {
+      userPassword: '12345',
+      rehashedPassword: '$2b$10$rEd5Zeqbs30OotmyNjPV6uRYhErf7s3uOdsnDg9E8jDco2wK5Zkz6',
+    };
+    const notEqualPasswords = {
+      userPassword: '12345',
+      rehashedPassword: '12345',
+    };
+    const confirmResults = await comparePassword(equalPassword);
+    const notConfirmResults = await comparePassword(notEqualPasswords);
+    expect(confirmResults).to.be.equal(true);
+    expect(notConfirmResults).to.be.equal(false);
   });
 });

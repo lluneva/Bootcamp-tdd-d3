@@ -29,7 +29,7 @@ describe('AuthController', () => {
       expect(resSend.send).to.be.calledWith({ payload: { message: 'Successfully registered' } });
       saveUser.restore(UserModel);
     });
-    it('unsucessfully registered, cannot save, status 400', async () => {
+    it('unsucessfully registered, cannot save', async () => {
       const resSend = { send: sinon.stub() };
       const req = {
         body: {
@@ -79,7 +79,7 @@ describe('AuthController', () => {
       getUserByEmail.restore(UserModel);
       comparePassword.restore(UserModel);
     });
-    it('unsuccessfully logged in, email is wrong, status 400', async () => {
+    it('unsuccessfully logged in, email is wrong', async () => {
       const resSend = { send: sinon.stub() };
       const req = {
         body: {
@@ -98,7 +98,7 @@ describe('AuthController', () => {
       expect(next.args[0][0]).to.be.instanceOf(AppError);
       getUserByEmail.restore(UserModel);
     });
-    it('unsuccessfully logged in, password is wrong, status 400', async () => {
+    it('unsuccessfully logged in, password is wrong', async () => {
       const resSend = { send: sinon.stub() };
       const req = {
         body: {
@@ -127,7 +127,7 @@ describe('AuthController', () => {
       getUserByEmail.restore(UserModel);
       comparePassword.restore(UserModel);
     });
-    it('unsuccessfully logged in, UserModel rejects, status 400', async () => {
+    it('unsuccessfully logged in, UserModel rejects', async () => {
       const resSend = { send: sinon.stub() };
       const req = {
         body: {

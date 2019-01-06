@@ -5,7 +5,7 @@ import AppError from '../../errors/AppError';
 
 require('dotenv').config();
 
-describe('commentController', () => {
+describe('CommentController', () => {
   describe('.getPostComments(req, res, next)', () => {
     it('successfully retrieved posts, status 200', async () => {
       const req = {
@@ -25,7 +25,7 @@ describe('commentController', () => {
       expect(next).to.be.not.calledOnce;
       getCommentsByPost.restore(CommentModel);
     });
-    it('unsuccessfully retrieved posts, status 400', async () => {
+    it('unsuccessfully retrieved posts', async () => {
       const req = {
         params: {
           mediaId: 'mediaId',
@@ -71,7 +71,7 @@ describe('commentController', () => {
       expect(next).to.be.not.calledOnce;
       commentSave.restore(CommentModel);
     });
-    it('unsuccessfully added comment to post, status 400', async () => {
+    it('unsuccessfully added comment to post', async () => {
       const req = {
         user: {
           username: 'username',

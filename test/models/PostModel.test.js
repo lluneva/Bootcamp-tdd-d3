@@ -8,8 +8,8 @@ import {
   PostModel,
 } from '../../models/PostModel';
 
-describe('MediaModel', async () => {
-  it('mediaSchema correct', async () => {
+describe('PostModel', async () => {
+  it('postSchema correct', async () => {
     expect(postSchema.obj).to.have.keys({
       title: { type: String, trim: true, unique: false, required: true },
       username: { type: String, required: true, unique: false },

@@ -48,7 +48,7 @@ describe('UserModel', async () => {
     };
     const notEqualPasswords = {
       userPassword: '12345',
-      rehashedPassword: '12345',
+      rehashedPassword: '123456',
     };
     const confirmResults = await comparePassword(equalPassword);
     const notConfirmResults = await comparePassword(notEqualPasswords);

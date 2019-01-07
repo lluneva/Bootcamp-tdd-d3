@@ -1,5 +1,6 @@
 const logger = require('../utils/logger')('logController');
 
+
 const getUserInfo = async (req, res) => {
   logger.log('debug', 'logIn: %j', req.body);
   const { user } = req;

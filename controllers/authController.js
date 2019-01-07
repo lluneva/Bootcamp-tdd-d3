@@ -5,7 +5,8 @@ import * as UserModel from '../models/UserModel';
 const logger = require('../utils/logger')('logController');
 
 /**
- * 
+ *
+ *
  * @param {*} req HTTP request parsed to object by bodyparser with data coming from the client
  * @param {*} res Response object we are using to send HTTP response back to the client
  * @param {*} next Function which is used to pass request execution flow to next middleware, if needed

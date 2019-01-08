@@ -19,9 +19,9 @@ const userSchema = undefined;
  * DOCS: https://mongoosejs.com/docs/middleware.html#pre
  * DOCS: https://www.npmjs.com/package/bcrypt#with-promises
  */
-userSchema.pre();
+// userSchema.pre();
 
-const UserModel = mongoose.model('User', userSchema);
+const UserModel = undefined;
 
 /**
  * This function should create new mongoose model and save it. Using promises not callbacks
@@ -53,7 +53,7 @@ const getUserByEmail = undefined;
  *
  * @param { userPassword, rehashedPassword } param0 received password and password from db
  */
-const comparePassword = async ({ userPassword, rehashedPassword }) => {};
+const comparePassword = undefined;
 
 // TODO Study.1
 
@@ -62,12 +62,12 @@ const comparePassword = async ({ userPassword, rehashedPassword }) => {};
  *
  * DOCS: https://mongoosejs.com/docs/validation.html
  */
-UserModel.schema
-  .path('username')
-  .validate(async username => !(await getUserByName(username)), 'User already exists!');
+// UserModel.schema
+//   .path('username')
+//   .validate(async username => !(await getUserByName(username)), 'User already exists!');
 
-UserModel.schema
-  .path('email')
-  .validate(async email => !(await getUserByEmail(email)), 'User already exists!');
+// UserModel.schema
+//   .path('email')
+//   .validate(async email => !(await getUserByEmail(email)), 'User already exists!');
 
 export { save, getUserByName, getUserByEmail, comparePassword, userSchema, UserModel };

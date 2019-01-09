@@ -1,4 +1,3 @@
-// TODO Study.3
 /**
  * DOCS: https://www.npmjs.com/package/dotenv
  */

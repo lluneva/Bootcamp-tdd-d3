@@ -1,10 +1,8 @@
-import express from 'express';
+// TODO Task.5
+/**
+ * 1. Define router with two post methods /users for registration and /session for logIn
+ */
 
-import { register, logIn } from '../controllers/authController';
-
-const router = express.Router();
-
-router.post('/users', register);
-router.post('/session', logIn);
+const router = undefined;
 
 export default router;

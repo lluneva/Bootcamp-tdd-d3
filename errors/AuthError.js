@@ -1,6 +1,5 @@
 import AppError from './AppError';
 
-// TODO Study.2
 /**
  * AuthError should be used to specify errors for Authentication from Application Errors.
  *

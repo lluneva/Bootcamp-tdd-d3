@@ -1,4 +1,3 @@
-// TODO Study.1
 /**
  * Custom logger is used to get more flexibility over console.log
  * winston logger implementation is proposed to use accross all application

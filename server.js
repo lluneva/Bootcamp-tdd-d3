@@ -15,7 +15,12 @@ const logger = require('./utils/logger')('server');
 
 const app = express();
 
-// TODO move Mongo connect to separate file
+// TODO Study.2
+/**
+ * Mongoose connect with express-session
+ *
+ * DOCS: https://www.npmjs.com/package/express-session; https://mongoosejs.com/docs/connections.html
+ */
 const MongoStore = mongo(session);
 mongoose.Promise = global.Promise; // Use native promises - http://mongoosejs.com/docs/promises.html
 mongoose.connect(
@@ -47,11 +52,13 @@ app.use(
   }),
 );
 
-app.use(`/api/v${process.env.API_VERSION}/auth`, authRouter);
-app.use(`/api/v${process.env.API_VERSION}/users`, authenticate, user);
+// TODO Task.7
+/**
+ * 1. Attach authRouter and user router to app on /api/v${process.env.API_VERSION}/auth and /api/v${process.env.API_VERSION}/users paths
+ * 2. UserRouter should be "protected" with authenticate middleware
+ */
 app.use(`/api/v${process.env.API_VERSION}`, index);
 
-app.use('/uploads', express.static('uploads'));
 app.use(defaultErrorHandler);
 
 const host = process.env[`HOST_${process.platform.toUpperCase()}`];

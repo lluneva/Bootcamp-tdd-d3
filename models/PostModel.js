@@ -1,25 +1,45 @@
 import mongoose from 'mongoose';
 
-const postSchema = new mongoose.Schema(
-  {
-    title: { type: String, trim: true, unique: false, required: true },
-    username: { type: String, required: true, unique: false },
-    media: {
-      contentId: { type: String, unique: true, required: true },
-      path: { type: String, unique: true, required: true },
-    },
-  },
-  { timestamps: true },
-);
+// TODO Task.2
 
-const PostModel = mongoose.model('Post', postSchema);
+/**
+ * Create post schema which reflects instagram post - picture with caption
+ *
+ * 1. Fields: title, username. Options: (string typed, unique and required)
+ * 2. Fields: media - nested schema with fields - contentId, path. Options: (string typed, unique and required)
+ * 2. With Timestamp
+ */
+const postSchema = undefined;
 
-const save = async model => new PostModel(model).save();
+/**
+ * 1. Define post model from schema
+ */
+const PostModel = undefined;
 
-const getPostByUser = async username => PostModel.findOne({ username });
+/**
+ * 1. Create and save model;
+ *
+ * @param {*} model
+ */
+const save = undefined;
 
-const getPostById = async _id => PostModel.findById({ _id });
+/**
+ * 1. Retrieves last (findOne) post by username
+ *
+ * @param {*} model
+ */
+const getPostByUser = undefined;
 
-const getRandomPosts = async () => PostModel.find();
+/**
+ * 1. Retrieves post by id (findById)
+ *
+ * @param {*} _id
+ */
+const getPostById = undefined;
+
+/**
+ * 1. Retrieves random posts (find)
+ */
+const getRandomPosts = undefined;
 
 export { save, getPostByUser, getRandomPosts, getPostById, postSchema, PostModel };

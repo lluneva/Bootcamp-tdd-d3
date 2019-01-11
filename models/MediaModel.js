@@ -1,19 +1,39 @@
 import mongoose from 'mongoose';
 
-const mediaSchema = new mongoose.Schema(
-  {
-    username: { type: String, unique: false, required: true },
-    path: { type: String, unique: true, required: true },
-  },
-  { timestamps: true },
-);
+// TODO Task.1
 
-const MediaModel = mongoose.model('Media', mediaSchema);
+/**
+ * Create media schema, which is used to save to db mapping of uploaded media id, path and username
+ *
+ * 1. Fields: username, path. Options: (string typed, unique and required)
+ * 2. With Timestamp
+ */
+const mediaSchema = undefined;
 
-const save = async model => new MediaModel(model).save();
+/**
+ * 1. Define media model from schema
+ */
+const MediaModel = undefined;
 
-const getMediaById = async id => MediaModel.findOne({ _id: id });
+/**
+ * 1. Create and save model;
+ *
+ * @param {*} model
+ */
+const save = undefined;
 
-const getMediaByUser = async userName => MediaModel.findOne({ userName });
+/**
+ * 1. findOne MediaModel by id
+ *
+ * @param {*} id
+ */
+const getMediaById = undefined;
+
+/**
+ * 1. findOne MediaModel by username
+ *
+ * @param {*} username
+ */
+const getMediaByUser = undefined;
 
 export { save, getMediaById, getMediaByUser, mediaSchema, MediaModel };

@@ -1,13 +1,13 @@
-import express from 'express';
+// TODO Task.4
 
-import { diskStorageSingle } from '../middlewares/diskStorage';
-import * as mediaController from '../controllers/mediaController';
-
-const router = express.Router();
-
-router.get('', mediaController.getPosts);
-router.post('', mediaController.addPosts);
-router.post('/content/image', diskStorageSingle, mediaController.attachMedia);
-router.get('/:mediaId', mediaController.getPostById);
+/**
+ * Define router
+ * 1. get '' - mediaController.getPosts
+ * 2. post '' - mediaController.addPosts
+ * 3. post '/content/image' - diskStorageSingle, mediaController.attachMedia
+ * 4. get '/:mediaId' - mediaController.getPostById
+ *
+ */
+const router = undefined;
 
 export default router;

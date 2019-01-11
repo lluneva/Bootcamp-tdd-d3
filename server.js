@@ -52,6 +52,10 @@ app.use(
   }),
 );
 
+/**
+ * Attach media handler to `/api/v${process.env.API_VERSION}/media`, protect it with authenticate
+ */
+
 app.use(`/api/v${process.env.API_VERSION}/auth`, authRouter);
 app.use(`/api/v${process.env.API_VERSION}/users`, authenticate, user);
 app.use(`/api/v${process.env.API_VERSION}`, index);

@@ -1,70 +1,63 @@
-import * as MediaModel from '../models/MediaModel';
-import * as PostModel from '../models/PostModel';
-import { UPLOAD_FOLDER } from '../consts/paths';
-import AppError from '../errors/AppError';
-
 const logger = require('../utils/logger')('logController');
+// TODO Task.3
 
-const addPosts = async (req, res, next) => {
-  logger.log('debug', 'addPosts: %j', req.body);
-  const { user } = req;
-  try {
-    const { path } = await MediaModel.getMediaById(req.body.contentId);
-    const post = await PostModel.save({
-      title: req.body.caption,
-      username: user.username,
-      media: {
-        path,
-        contentId: req.body.contentId,
-      },
-    });
-    res.status(200).send({ payload: post });
-  } catch (error) {
-    next(new AppError(error.message));
-  }
-};
-
+/**
+ * AttachMedia is used to save uploaded picture id and path to db, in parallel with post creation on afrontend.
+ * It will be placed after diskStorage middleware, so picture will be already uploaded when request will reach it.
+ *
+ * 1. Extract filename from req (uploaded file metadata was previously attached by diskStorage middleware)
+ * 2. Save new model using MediaModel
+ * 3. Send status 200 and { payload: { contentId: media.id, path: `/${UPLOAD_FOLDER}/${filename}` } in case of success
+ * 4. In case of error pass AppError(error.message) to next function
+ *
+ * @param {*} req HTTP request parsed to object by bodyparser with data coming from the client
+ * @param {*} res Response object we are using to send HTTP response back to the client
+ * @param {*} next Function which is used to pass request execution flow to next middleware, if needed
+ */
 const attachMedia = async (req, res, next) => {
   logger.log('debug', 'attachMedia: %j', req.body);
-  const { user } = req;
-  const {
-    file: { filename },
-  } = req;
-
-  try {
-    const media = await MediaModel.save({
-      username: user.username,
-      path: `/${UPLOAD_FOLDER}/${filename}`,
-    });
-    res.status(200).send({
-      payload: {
-        contentId: media.id,
-        path: `/${UPLOAD_FOLDER}/${filename}`,
-      },
-    });
-  } catch (error) {
-    next(new AppError(error.message));
-  }
 };
 
+/**
+ * Handler should add new post using contentId and caption passed from client in req.body
+ *
+ * 1. Retrieve media path by its id using MediaModel
+ * 2. Create new post using PostModel
+ * 3. Send status 200 and { payload: post } in case of success
+ * 4. In case of error pass AppError(error.message) to next function
+ *
+ * @param {*} req HTTP request parsed to object by bodyparser with data coming from the client
+ * @param {*} res Response object we are using to send HTTP response back to the client
+ * @param {*} next Function which is used to pass request execution flow to next middleware, if needed
+ */
+const addPosts = async (req, res, next) => {
+  logger.log('debug', 'addPosts: %j', req.body);
+};
+
+/**
+ * 1. Retrieve random posts
+ * 2. Send status 200 and { payload: posts || [] } in case of success
+ * 3. In case of error pass AppError(error.message) to next function
+ *
+ * @param {*} req HTTP request parsed to object by bodyparser with data coming from the client
+ * @param {*} res Response object we are using to send HTTP response back to the client
+ * @param {*} next Function which is used to pass request execution flow to next middleware, if needed
+ */
 const getPosts = async (req, res, next) => {
   logger.log('debug', 'getPosts: %j', req.body);
-  try {
-    const posts = await PostModel.getRandomPosts();
-    res.status(200).send({ payload: posts || [] });
-  } catch (error) {
-    next(new AppError(error.message));
-  }
 };
 
+/**
+ * 1. Retrieve random posts
+ * 2. Send status 200 and { payload: posts || [] } in case of success
+ * 3. In case of error pass AppError(error.message) to next function
+ *
+ * @param {*} req HTTP request parsed to object by bodyparser with data coming from the client
+ * @param {*} res Response object we are using to send HTTP response back to the client
+ * @param {*} next Function which is used to pass request execution flow to next middleware, if needed
+ */
 const getPostById = async (req, res, next) => {
   logger.log('debug', 'getPostById: %j', req.body);
-  try {
-    const post = await PostModel.getPostById(req.params.mediaId);
-    res.status(200).send({ payload: post });
-  } catch (error) {
-    next(new AppError(error.message));
-  }
 };
 
 export { getPosts, addPosts, attachMedia, getPostById };

@@ -1,8 +1,9 @@
-// TODO Task.6
-/**
- * 1. Define router with get method on path /self and getUserInfo handler
- */
+import express from 'express';
 
-const router = undefined;
+import { getUserInfo } from '../controllers/userController';
+
+const router = express.Router();
+
+router.get('/self', getUserInfo);
 
 export default router;

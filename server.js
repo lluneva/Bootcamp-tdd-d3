@@ -52,11 +52,8 @@ app.use(
   }),
 );
 
-// TODO Task.7
-/**
- * 1. Attach authRouter and user router to app on /api/v${process.env.API_VERSION}/auth and /api/v${process.env.API_VERSION}/users paths
- * 2. UserRouter should be "protected" with authenticate middleware
- */
+app.use(`/api/v${process.env.API_VERSION}/auth`, authRouter);
+app.use(`/api/v${process.env.API_VERSION}/users`, authenticate, user);
 app.use(`/api/v${process.env.API_VERSION}`, index);
 
 app.use(defaultErrorHandler);

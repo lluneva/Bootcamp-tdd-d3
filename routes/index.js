@@ -9,6 +9,13 @@
  *
  * DOCS: https://expressjs.com/en/guide/routing.html; Especially express.Router topic
  */
-import express from 'express';
+import express from 'express'; // importing express library, 
+//which has a specific class Router
 
-const router = express.Router();
+const router = express.Router(); // router ir Router klases objekta instance
+
+const index = require('../controllers/indexController.js');
+router.get('/*', index); 
+
+
+module.exports = router;

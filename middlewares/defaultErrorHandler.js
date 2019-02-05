@@ -5,7 +5,7 @@
  * its constructor function should be called with module name;
  * Either import or require (for shorter syntax) can be used
  */
-const logger = undefined;
+const errorLogger = require('../utils/logger')('errorhandler');
 
 /**
  * defaultErrorHandler is used to catch all errors which were passed to next inside all our applications
@@ -20,4 +20,10 @@ const logger = undefined;
  * @param {*} res Response object we are using to send HTTP response back to the client
  * @param {*} next Function which is used to pass request execution flow to next middleware, if needed
  */
-const defaultErrorHandler = (error, req, res, next) => {};
+const defaultErrorHandler = (error, req, res, next) => {
+    errorLogger.log('error',`${error.name} ${error.status} ${error.message}`); // error shall be logged in with name, status and mssg
+    res.status(error.status).send({error: error.message});
+};
+
+module.exports= defaultErrorHandler;
+

@@ -9,4 +9,7 @@
  * @param {*} req HTTP request parsed to object by bodyparser with data coming from the client
  * @param {*} res Response object we are using to send HTTP response back to the client
  */
-const index = async (req, res) => {};
+const index = async (req, res) => {res.status(200).send({ message: 'Bootcamp api' })};
+// const index ir funkcija, ko talak izmanto lai rootetu.
+
+module.exports= index;

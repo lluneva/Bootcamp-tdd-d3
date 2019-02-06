@@ -10,35 +10,46 @@ import * as bcrypt from 'bcrypt';
  *
  * DOCS: https://mongoosejs.com/docs/guide.html
  */
-const userSchema = undefined;
+
+const userSchema = mongoose.Schema({
+    username: { type: String, trim: true, unique: true, required: true },
+    email: { type: String, trim: true, unique: true, required: true },
+    rehashedPassword: { type: String, trim: true, unique: true, required: true }
+},
+    {
+        timestamp: { type: Date }
+    });
 
 /**
  * Pre save hook should be attached to schema to hash password every time we try to save user model;
  * 3. bcrypt should be used for hashing, 10 hashing rounds, rounds amount should be saved to consts or .env
- *
- * DOCS: https://mongoosejs.com/docs/middleware.html#pre
+  * DOCS: https://mongoosejs.com/docs/middleware.html#pre
  * DOCS: https://www.npmjs.com/package/bcrypt#with-promises
  */
-// userSchema.pre();
+userSchema.pre('save', async function callback(next) {
+    if (this.rehashedPassword) { // checking if there is a paasword at all; 
+        this.rehashedPassword = await bcrypt.hash(this.rehashedPassword, parseInt(process.env.PASSWORD_HASHING_ROUNDS, 10),
+            // Stores hash in your password DB.
+        );
+    }
+    next();
+});
 
-const UserModel = undefined;
-
+const UserModel = mongoose.model('User', userSchema);
 /**
  * This function should create new mongoose model and save it. Using promises not callbacks
  * 4. Save model using promises.
- *
- * DOCS: https://mongoosejs.com/docs/models.html
+  * DOCS: https://mongoosejs.com/docs/models.html
  * @param {*} model object to save
  */
-const save = undefined;
+const save = async model => new UserModel(model).save();
 
 /**
  * 5. Find user by its name. Using Promises and findOne query function
- *
- * DOCS: https://mongoosejs.com/docs/queries.html
+  * DOCS: https://mongoosejs.com/docs/queries.html
  * @param {*} username used during registration
  */
-const getUserByName = undefined;
+const getUserByName = async username=>UserModel.findOne({username});
 
 /**
  * 6. Find user by its name. Using Promises and findOne query function.
@@ -46,14 +57,14 @@ const getUserByName = undefined;
  * DOCS: https://mongoosejs.com/docs/queries.html
  * @param {*} email used during registration
  */
-const getUserByEmail = undefined;
+const getUserByEmail = async email=>UserModel.findOne({email});
 
 /**
  * 7. Compare passwords using bcrypt compare function. Return true or false;
  *
  * @param { userPassword, rehashedPassword } param0 received password and password from db
  */
-const comparePassword = undefined;
+const comparePassword = async ({userPassword, rehashedPassword})  => bcrypt.compare(userPassword, rehashedPassword);
 
 // TODO Study.1
 

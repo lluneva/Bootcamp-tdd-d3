@@ -38,7 +38,7 @@ mongoose.connection.once('open', () => logger.log('info', 'MongoDB has been conn
 
 app.use(cors());
 
-app.use(bodyParser.json());
+app.use(bodyParser.json()); // the library called bodyParses parses the body instead of doing it "somehow manually". :-D
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   session({

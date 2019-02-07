@@ -18,7 +18,17 @@ const logger = require('../utils/logger')('logController');
  * @param {*} res Response object we are using to send HTTP response back to the client
  */
 const getUserInfo = async (req, res) => {
-  logger.log('debug', 'logIn: %j', req.body);
+  const { user } = req; //   sis principaa izveido jaunu mainigo izvelkot datus no req.body, kas saisina sintaksi
+  //paylod mainigajiem, jo nav jaraksta visu laiku req.user._id, req.user.username etc`
+  logger.log('info', 'logIn: %j', user.id);
+  res.status(200).send({
+    payload: {
+      id: user._id,
+      email: user.email,
+      username: user.username,
+      createdAt: user.createdAt,
+    },
+  });
 };
 
 export { getUserInfo };

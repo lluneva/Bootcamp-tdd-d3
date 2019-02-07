@@ -30,7 +30,7 @@ mongoose.connect(
     useNewUrlParser: true,
   },
 );
-mongoose.connection.on('error', error => {
+mongoose.connection.on('error', error => {// on connection error if there is no DB, pls fix it
   logger.log('error', 'MongoDB connection error. Please make sure MongoDB is running.');
   process.exit();
 });
@@ -40,7 +40,7 @@ app.use(cors());
 
 app.use(bodyParser.json()); // the library called bodyParses parses the body instead of doing it "somehow manually". :-D
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(
+app.use( //this method says pls. use sessions, and store in db
   session({
     resave: true,
     saveUninitialized: true,
@@ -57,7 +57,11 @@ app.use(
  * 1. Attach authRouter and user router to app on /api/v${process.env.API_VERSION}/auth and /api/v${process.env.API_VERSION}/users paths
  * 2. UserRouter should be "protected" with authenticate middleware
  */
+
+app.use(`/api/v${process.env.API_VERSION}/auth`, authRouter );
+app.use(`/api/v${process.env.API_VERSION}/users`, authenticate, user ); // authentication middleware function is invoked
 app.use(`/api/v${process.env.API_VERSION}`, index);
+
 
 app.use(defaultErrorHandler);
 

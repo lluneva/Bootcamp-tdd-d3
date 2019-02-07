@@ -58,6 +58,9 @@ const logIn = async (req, res, next) => {
   logger.log('debug', 'logIn: %j', req.body);//logs information  when shall be debugging. Anything after% wil be replaced by req.body
 
   try {
+    if (!req.body.hashedPassword) { // we need to say what to do if no password is provided
+      throw new AppError('Password is required', 400)
+    }
     const user = await UserModel.getUserByEmail(req.body.email);
     if (!user) {
       throw new AppError('Wrong user credentials!', 400);
@@ -78,7 +81,7 @@ const logIn = async (req, res, next) => {
     { expiresIn: '6h' },
     );
     logger.log('info', `User: ${user.username} sucessfully logged in`);
-    res.status(200).send({ payload: { message: 'Successfully loged in', token } })
+    res.status(200).send({ payload: { message: 'Successfully logged in', token } })
 
   } catch (error) {
     next(error instanceof AppError ? error : new AppError(error.message, error.status))

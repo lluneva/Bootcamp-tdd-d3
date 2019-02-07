@@ -17,7 +17,7 @@ const userSchema = mongoose.Schema({
     rehashedPassword: { type: String, trim: true, unique: true, required: true }
 },
     {
-        timestamp: { type: Date }
+        timestamp: true,
     });
 
 /**

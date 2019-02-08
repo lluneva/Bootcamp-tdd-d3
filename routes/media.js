@@ -1,3 +1,7 @@
+import express from 'express';
+import {getPosts, addPosts, attachMedia} from '../controllers/mediaController'
+import { getPostById } from '../models/PostModel';
+import {diskStorageSingle} from '../middlewares/diskStorage'
 // TODO Task.4
 
 /**
@@ -8,6 +12,14 @@
  * 4. get '/:mediaId' - mediaController.getPostById
  *
  */
-const router = undefined;
+const router = express.Router();
+
+router.get('', getPosts);
+router.post('', addPosts);
+router.post('/content/image', diskStorageSingle, attachMedia );
+router.get('/:mediaId', getPostById )
+
+
+
 
 export default router;

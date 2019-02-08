@@ -8,32 +8,40 @@ import mongoose from 'mongoose';
  * 1. Fields: username, path. Options: (string typed, unique and required)
  * 2. With Timestamp
  */
-const mediaSchema = undefined;
+const mediaSchema = new mongoose.Schema(
+    {
+        username : { type :String, unique: true},
+        path :  { type :String, unique: true},
+    },
+    { 
+        timestamps: true
+    },
+);
 
 /**
  * 1. Define media model from schema
  */
-const MediaModel = undefined;
+const MediaModel = mongoose.model('Media', mediaSchema);
 
 /**
  * 1. Create and save model;
  *
  * @param {*} model
  */
-const save = undefined;
+const save = async model => new MediaModel(model).save();
 
 /**
  * 1. findOne MediaModel by id
  *
  * @param {*} id
  */
-const getMediaById = undefined;
+const getMediaById = async id => MediaModel.findById(id);
 
 /**
  * 1. findOne MediaModel by username
  *
  * @param {*} username
  */
-const getMediaByUser = undefined;
+const getMediaByUser = async username => MediaModel.findOne({username});
 
 export { save, getMediaById, getMediaByUser, mediaSchema, MediaModel };

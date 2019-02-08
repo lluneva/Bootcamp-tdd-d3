@@ -2,7 +2,7 @@
 .idea
 .svn
 .git
-node_modules
+/node_modules
 .vscode
 !logs/.gitkeep
 logs/

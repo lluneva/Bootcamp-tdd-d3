@@ -7,7 +7,9 @@ const userSchema = new mongoose.Schema(
     email: { type: String, trim: true, unique: true, required: true },
     rehashedPassword: { type: String, unique: true, required: true },
   },
-  { timestamps: true },
+  { 
+    timestamps: true 
+  },
 );
 
 userSchema.pre('save', async function callback(next) {

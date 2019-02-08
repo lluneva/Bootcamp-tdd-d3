@@ -15,7 +15,7 @@ const logger = require('./utils/logger')('server');
 
 const app = express();
 
-// TODO Study.2
+// TODO Study.3
 /**
  * Mongoose connect with express-session
  *

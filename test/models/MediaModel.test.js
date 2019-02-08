@@ -32,10 +32,10 @@ describe('MediaModel', async () => {
     expect(findModel).to.be.calledWith({ _id: id });
   });
   it('getMediaByUser works', async () => {
-    const userName = 'username';
+    const username = 'username';
     const findModel = sinon.stub().resolves();
     MediaModel.findOne = findModel;
-    await getMediaByUser(userName);
-    expect(findModel).to.be.calledWith({ userName });
+    await getMediaByUser(username);
+    expect(findModel).to.be.calledWith({ username });
   });
 });

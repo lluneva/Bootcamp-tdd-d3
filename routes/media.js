@@ -1,5 +1,5 @@
 import express from 'express';
-
+import * as commentController from '../controllers/commentController'
 import { diskStorageSingle } from '../middlewares/diskStorage';
 import * as mediaController from '../controllers/mediaController';
 
@@ -14,7 +14,7 @@ router.get('/:mediaId', mediaController.getPostById);
 /**
  * Create whole chain of modules to implement comments functionality.
  */
-// router.get('/:mediaId/comments', commentController.getPostComments);
-// router.post('/:mediaId/comments', commentController.addPostComments);
+router.get('/:mediaId/comments', commentController.getPostComments);
+router.post('/:mediaId/comments', commentController.addPostComments);
 
 export default router;

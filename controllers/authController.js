@@ -12,7 +12,7 @@ const register = async (req, res, next) => {
       email: req.body.email,
       rehashedPassword: req.body.hashedPassword,
     });
-    logger.log('info', `Successfully registered: ${req.body.userName}`);
+    logger.log('info', `Successfully registered: ${req.body.username}`);
     res.status(200).send({ payload: { message: 'Successfully registered' } });
   } catch (error) {
     next(new AppError(error.message, 400));

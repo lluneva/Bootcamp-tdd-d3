@@ -51,6 +51,9 @@ const getPosts = async (req, res, next) => {
   logger.log('debug', 'getPosts: %j', req.body);
   try {
     const posts = await PostModel.getRandomPosts();
+    posts.forEach(el => {
+      el.media.path = `http://${process.env.HOST_WIN32}:${process.env.HOST_PORT}${el.media.path}`;
+    });
     res.status(200).send({ payload: posts || [] });
   } catch (error) {
     next(new AppError(error.message));

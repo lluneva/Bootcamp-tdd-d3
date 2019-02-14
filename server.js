@@ -50,6 +50,7 @@ app.use(
 
 app.use(`/api/v${process.env.API_VERSION}/auth`, authRouter);
 app.use(`/api/v${process.env.API_VERSION}/users`, authenticate, user);
+
 app.use(`/api/v${process.env.API_VERSION}/media`, authenticate, media);
 app.use(`/api/v${process.env.API_VERSION}`, index);
 

@@ -1,3 +1,6 @@
+import * as UserModel from '../models/UserModel';
+import AppError from '../errors/AppError';
+
 const logger = require('../utils/logger')('logController');
 
 const getUserInfo = async (req, res) => {
@@ -13,4 +16,15 @@ const getUserInfo = async (req, res) => {
   });
 };
 
-export { getUserInfo };
+const getUsers = async (req, res, next) => {
+  try {
+    const users = await UserModel.getUsers();
+    res.status(200).send({
+      payload: users
+    });
+  } catch (err) {
+    next(new AppError(err.message));
+  }
+};
+
+export { getUserInfo, getUsers };

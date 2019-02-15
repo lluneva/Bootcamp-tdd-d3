@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const postSchema = new mongoose.Schema(
   {
     title: { type: String, trim: true, unique: false, required: true },
-    username: { type: String, required: true, unique: false },
+    username: { type: String, unique: false , required: true},
     media: {
       contentId: { type: String, unique: true, required: true },
       path: { type: String, unique: true, required: true },

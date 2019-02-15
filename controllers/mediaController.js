@@ -8,7 +8,7 @@ const logger = require('../utils/logger')('logController');
 const addPosts = async (req, res, next) => {
   logger.log('debug', 'addPosts: %j', req.body);
   const { user } = req;
-  try {
+    try {
     const { path } = await MediaModel.getMediaById(req.body.contentId);
     const post = await PostModel.save({
       title: req.body.caption,
@@ -18,6 +18,7 @@ const addPosts = async (req, res, next) => {
         contentId: req.body.contentId,
       },
     });
+    post.media.path = `http://${process.env.HOST_WIN32}:${process.env.HOST_PORT}${post.media.path}`
     res.status(200).send({ payload: post });
   } catch (error) {
     next(new AppError(error.message));
